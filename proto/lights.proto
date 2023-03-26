@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+
+// The Lights service definition.
+service Lights {
+  // Sends a 
+  rpc ToggleLight (LightRequest) returns (LightReply) {}
+}
+
+// The request message to turn on/off a light
+// 1. user_id: The id that of the user
+// 2. light_id: The id of the light
+message LightRequest {
+  string user_id = 1;
+  int32 light_id = 2;
+}
+
+// The response message to turn on/off a light
+// 1. user_id: The id that of the user
+// 2. light_id: The id of the light
+message LightReply {
+  string user_id = 1;
+  int32 light_id = 2;
+}
