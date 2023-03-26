@@ -1,4 +1,4 @@
-# ECE 4960 Final Project
+# ECE 4400 Final Project
 ## An API for Smart Home Lighting System
 
 ----
