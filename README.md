@@ -1,5 +1,5 @@
-# P
-## An API for ECE 496 Final Project
+# ECE 4960 Final Project
+## An API for Smart Home Lighting System
 
 ----
 ### Usage
