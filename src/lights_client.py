@@ -6,7 +6,7 @@ import grpc
 import lights_pb2_grpc
 import lights_pb2
 
-IP_ADDR = '0.0.0.0'
+IP_ADDR = '192.168.187.68'
 PORT = '50051'
 
 def toggle_lights(user_id, light_id):
