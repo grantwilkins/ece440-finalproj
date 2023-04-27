@@ -7,12 +7,12 @@
 /************************* WiFi Access Point *********************************/ 
 #define WLAN_SSID       "Jackspot" 
 #define WLAN_PASS       "jlmg603^" 
-#define MQTT_SERVER      "192.168.1.68" // static ip address
-#define MQTT_PORT         1883                    
-#define MQTT_USERNAME    "" 
-#define MQTT_PASSWORD         "" 
-#define LED_PIN     5                // Pin connected to the LED. GPIO 2 (D4) 
-#define BUTTON_PIN  4               // Pin connected to the button. GPIO 15 (D8) 
+#define MQTT_SERVER     "192.168.187.68" // static ip address
+#define MQTT_PORT       1883                    
+#define MQTT_USERNAME   "" 
+#define MQTT_PASSWORD   "" 
+#define LED_PIN     2                // Pin connected to the LED. GPIO 2 (D4) 
+#define BUTTON_PIN  15               // Pin connected to the button. GPIO 15 (D8) 
 /************ Global State ******************/ 
 // Create an ESP8266 WiFiClient class to connect to the MQTT server. 
 WiFiClient client; 
@@ -23,7 +23,7 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_PORT, MQTT_USERNAME, MQTT_P
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname> 
 Adafruit_MQTT_Publish pi_led = Adafruit_MQTT_Publish(&mqtt, MQTT_USERNAME "/leds/pi"); 
 // Setup a feed called 'esp8266_led' for subscribing to changes. 
-Adafruit_MQTT_Subscribe esp8266_led = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/leds/esp8266"); 
+Adafruit_MQTT_Subscribe esp8266_led = Adafruit_MQTT_Subscribe(&mqtt, MQTT_USERNAME "/leds/esp8266_n"); 
 /*************************** Sketch Code ************************************/ 
 void MQTT_connect(); 
 void setup() { 
@@ -32,7 +32,7 @@ void setup() {
  pinMode(LED_PIN, OUTPUT); 
  digitalWrite(LED_PIN, LOW); 
  // Setup button as an input with internal pull-up. 
-pinMode(BUTTON_PIN, INPUT_PULLUP); 
+ pinMode(BUTTON_PIN, INPUT_PULLUP); 
  Serial.println(F("RPi-ESP-MQTT")); 
  // Connect to WiFi access point. 
  Serial.println(); Serial.println(); 
@@ -78,7 +78,7 @@ void loop() {
      else if (strncmp(message, "TOGGLE", 6) == 0) { 
        // Toggle the LED. 
        digitalWrite(LED_PIN, !digitalRead(LED_PIN)); 
-} 
+      } 
    } 
  } 
  delay(20); 
@@ -86,7 +86,8 @@ void loop() {
  if ((button_first == HIGH) && (button_second == LOW)) { 
    // Button was pressed! 
    Serial.println("Button pressed!"); 
-   pi_led.publish("TOGGLE"); 
+   pi_led.publish("TOGGLE");
+   //digitalWrite(LED_PIN, !digitalRead(LED_PIN));  
  } 
 } 
 // Function to connect and reconnect as necessary to the MQTT server. 
