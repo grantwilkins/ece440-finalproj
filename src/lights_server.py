@@ -8,7 +8,7 @@ import mqtt_dispatch
 
 class Lights(lights_pb2_grpc.LightsServicer):
     def ToggleLight(self, request, context):
-        print("Received request: " + request.user_id + " " + request.light_id)
+        print("Received request: " + request.user_id + " " + str(request.light_id))
         mqtt_dispatch.toggle_lights(request.light_id)
         return lights_pb2.LightReply(user_id=request.user_id, light_id=request.light_id)
 
